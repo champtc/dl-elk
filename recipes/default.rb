@@ -23,14 +23,6 @@ end
 #basic tools
 package 'wget'
 package 'net-tools'
-package 'mlocate'
-package 'nano'
-
-#update mlocate
-execute 'update mlocate' do
- action :run
- command 'updatedb'
-end
 
 #latest java x86_64
 execute 'wget java' do
@@ -162,9 +154,6 @@ execute 'plugin install stomp' do
  command '/usr/share/logstash/bin/logstash-plugin install logstash-output-stomp'
 end
 
-#dos2unix
-package 'dos2unix'
-
 #geoip update
 cookbook_file '/etc/logstash/geo-update.bash' do
   source 'geo-update.bash'
@@ -203,12 +192,6 @@ execute 'disable firewall' do
  action :run
  command 'systemctl stop firewalld && systemctl disable firewalld'
 end
- 
-#make tmp folder
-execute 'tmp folder' do
- action :run
- command 'mkdir /etc/tmp'
-end 
 
 #restart nginx
 execute 'restart nginx' do
@@ -228,7 +211,7 @@ execute 'restart elasticsearch' do
  command 'systemctl restart elasticsearch.service'
 end
  
- #restart logstash
+#restart logstash
 execute 'restart logstash' do
  action :run
  command 'systemctl restart logstash.service'
