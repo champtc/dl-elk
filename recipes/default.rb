@@ -51,7 +51,7 @@ execute 'install java' do
  command 'yum localinstall java.rpm -y'
 end
 
-execute 'remove jdk' do
+execute 'remove java.rpm' do
  action :run
  command 'rm -f /java.rpm'
 end
@@ -209,27 +209,6 @@ execute 'tmp folder' do
  action :run
  command 'mkdir /etc/tmp'
 end 
- 
- #disable selinux
-cookbook_file '/etc/tmp/stomp_install.sh' do
-  source 'stomp_install.sh'
-  owner 'root'
-  group 'root'
-  mode '0644'
-  action :create
-end
-
-#activemq install
-execute 'stomp_install to unix' do
- action :run
- command 'dos2unix /etc/tmp/stomp_install.sh /etc/tmp/stomp_install.sh'
-end
-
-#activemq install
-execute 'install activemq' do
- action :run
- command 'sh /etc/tmp/stomp_install.sh'
-end
 
 #restart nginx
 execute 'restart nginx' do
