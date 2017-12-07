@@ -7,12 +7,6 @@
 # All rights reserved - Do Not Redistribute
 #
 
-#yum update
-execute 'yum update' do
- action :run
- command 'yum update -y'
-end
-
 #time
 package 'ntp'
 
@@ -38,20 +32,28 @@ execute 'update mlocate' do
  command 'updatedb'
 end
 
-#latest java 
+#latest java x86_64
 execute 'wget java' do
  action :run
- command 'wget --no-cookies --no-check-certificate --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/8u144-b01/090f390dda5b47b9b721c7dfaa008135/jdk-8u144-linux-x64.rpm'
+ command 'wget http://www.champtc.com/java/jdk-8u151-linux-i586.rpm -O java.rpm'
+ only_if {node['kernel']['machine']=="x86_64"}
+end
+
+#latest java x64
+execute 'wget java' do
+ action :run
+ command 'wget http://www.champtc.com/java/jdk-8u151-linux-x64.rpm -O java.rpm'
+ only_if {node['kernel']['machine']=="x64"}
 end
 
 execute 'install java' do
  action :run
- command 'yum localinstall jdk-8u144-linux-x64.rpm -y'
+ command 'yum localinstall java.rpm -y'
 end
 
 execute 'remove jdk' do
  action :run
- command 'rm -f /jdk-8u144-linux-x64.rpm'
+ command 'rm -f /java.rpm'
 end
 
 #repos
