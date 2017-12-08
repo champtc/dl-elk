@@ -178,15 +178,6 @@ execute 'geoip cron' do
  command 'crontab -l | { cat; echo "0 12 * * 3 /etc/Logstash/geo-update.bash > /dev/null 2>&1"; } | crontab -'
 end
 
-#disable selinux
-cookbook_file '/etc/sysconfig/selinux' do
-  source 'selinux'
-  owner 'root'
-  group 'root'
-  mode '0644'
-  action :create
-end
-
 #disable firewall
 execute 'disable firewall' do
  action :run
