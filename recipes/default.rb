@@ -27,15 +27,15 @@ package 'net-tools'
 #latest java x86_64
 execute 'wget java' do
  action :run
- command 'wget http://www.champtc.com/java/jdk-8u151-linux-i586.rpm -O java.rpm'
+ command 'wget http://www.champtc.com/java/jdk-8u151-linux-x64.rpm -O java.rpm'
  only_if {node['kernel']['machine']=="x86_64"}
 end
 
-#latest java x64
+#latest java 32 bit
 execute 'wget java' do
  action :run
- command 'wget http://www.champtc.com/java/jdk-8u151-linux-x64.rpm -O java.rpm'
- only_if {node['kernel']['machine']=="x64"}
+ command 'wget http://www.champtc.com/java/jdk-8u151-linux-i586.rpm -O java.rpm'
+ only_if {node['kernel']['machine']=="TBD"}
 end
 
 execute 'install java' do
@@ -176,15 +176,6 @@ end
 execute 'geoip cron' do
  action :run
  command 'crontab -l | { cat; echo "0 12 * * 3 /etc/Logstash/geo-update.bash > /dev/null 2>&1"; } | crontab -'
-end
-
-#disable selinux
-cookbook_file '/etc/sysconfig/selinux' do
-  source 'selinux'
-  owner 'root'
-  group 'root'
-  mode '0644'
-  action :create
 end
 
 #disable firewall
