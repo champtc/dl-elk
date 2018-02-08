@@ -130,8 +130,8 @@ end
 
 package 'logstash'
 
-cookbook_file '/etc/logstash/conf.d/all_configs.conf' do
-  source 'all_configs.conf'
+cookbook_file '/etc/logstash/conf.d/champion_logstash_config.conf' do
+  source 'champion_logstash_config.conf'
   owner 'root'
   group 'root'
   mode '0644'
