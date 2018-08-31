@@ -136,12 +136,17 @@ end
 
 package 'logstash'
 
-cookbook_file '/etc/logstash/conf.d/champion_logstash_config.conf' do
-  source 'champion_logstash_config.conf'
+cookbook_file '/etc/logstash/conf.d/champion_logstash_config.tar' do
+  source 'champion_logstash_config.tar'
   owner 'root'
   group 'root'
   mode '0644'
   action :create
+end
+
+execute 'tar config' do
+ action :run
+ command 'tar -xzf /etc/logstash/conf.d/champion_logstash_config.tar'
 end
 
 execute 'logstash startup' do
@@ -155,9 +160,9 @@ execute 'plugin install tld' do
  command '/usr/share/logstash/bin/logstash-plugin install logstash-filter-tld'
 end
 
-execute 'plugin install stomp' do
+execute 'update plugins' do
  action :run
- command '/usr/share/logstash/bin/logstash-plugin install logstash-output-stomp'
+ command '/usr/share/logstash/bin/logstash-plugin update'
 end
 
 #geoip update
