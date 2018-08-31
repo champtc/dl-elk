@@ -20,6 +20,12 @@ execute 'ntpd start' do
  command 'systemctl start ntpd.service'
 end
 
+#SET SELINUX
+execute 'set selinux to permissive' do
+ action :run
+ command 'sed -i "s/enforcing/permissive/g" /etc/selinux/config'
+end
+
 #basic tools
 package 'wget'
 package 'net-tools'
