@@ -30,28 +30,9 @@ end
 package 'wget'
 package 'net-tools'
 
-#latest java x86_64
-execute 'wget java' do
- action :run
- command 'wget http://www.champtc.com/java/jdk-8u151-linux-x64.rpm -O java.rpm'
- only_if {node['kernel']['machine']=="x86_64"}
-end
-
-#latest java 32 bit
-execute 'wget java' do
- action :run
- command 'wget http://www.champtc.com/java/jdk-8u151-linux-i586.rpm -O java.rpm'
- only_if {node['kernel']['machine']=="TBD"}
-end
-
 execute 'install java' do
  action :run
- command 'yum localinstall java.rpm -y'
-end
-
-execute 'remove java.rpm' do
- action :run
- command 'rm -f /java.rpm'
+ command 'yum install java -y'
 end
 
 #repos
