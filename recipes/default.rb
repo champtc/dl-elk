@@ -146,7 +146,7 @@ end
 
 execute 'tar config' do
  action :run
- command 'tar -xzf /etc/logstash/conf.d/champion_logstash_config.tar'
+ command 'tar -xvf /etc/logstash/conf.d/champion_logstash_config.tar -C /etc/logstash/conf.d/'
 end
 
 execute 'logstash startup' do
